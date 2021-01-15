@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Word Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/word_game.css">
+    <script src="js/word_game.js"></script>
+  </head>
+  <body>
+    <div id="overlay">
+      <div id="overlayText"></div>
+    </div>
+    <div class="w3-container">
+      <div id="uiPanel">
+          <div id="topBar" class="w3-bar">
+            <h2 class="w3-left">Word Game</h2>
+            <div class="w3-right" id="tilesLeftPanel">
+              <table>
+                <tr>
+                    <td>Tiles Left</td>
+                </tr>
+                <tr>
+                    <td><span id="numberOfTilesLeft">0</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div id="scoresView">
+            <table>
+              <tr>
+                <td>
+                    <div id="scorename_1" class="scoreName">Player 1</div>
+                </td>
+                <td>
+                    <div id="scorevalue_1" class="scoreValue">0</div>
+                </td>
+                <td>
+                    <div id="scoredetail_1" class="scoreDetail"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <div id="scorename_2" class="scoreName">Player 2</div>
+                </td>
+                <td>
+                    <div id="scorevalue_2" class="scoreValue">0</div>
+                </td>
+                <td>
+                    <div id="scoredetail_2" class="scoreDetail"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <div id="scorename_3" class="scoreName">Player 3</div>
+                </td>
+                <td>
+                    <div id="scorevalue_3" class="scoreValue">0</div>
+                </td>
+                <td>
+                    <div id="scoredetail_3" class="scoreDetail"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <div id="scorename_4" class="scoreName">Player 4</div>
+                </td>
+                <td>
+                    <div id="scorevalue_4" class="scoreValue">0</div>
+                </td>
+                <td>
+                    <div id="scoredetail_4" class="scoreDetail"></div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="playingAreaView">
+            <table class="board">
+              <tr>
+                <td><div id="board_1_1" class="square"><div id="board_value_1_1" class="squarevalue"></div><div id="board_height_1_1" class="squareheight"></div></div></td>
+                <td><div id="board_1_2" class="square"><div id="board_value_1_2" class="squarevalue"></div><div id="board_height_1_2" class="squareheight"></div></div></td>
+                <td><div id="board_1_3" class="square"><div id="board_value_1_3" class="squarevalue"></div><div id="board_height_1_3" class="squareheight"></div></div></td>
+                <td><div id="board_1_4" class="square"><div id="board_value_1_4" class="squarevalue"></div><div id="board_height_1_4" class="squareheight"></div></div></td>
+                <td><div id="board_1_5" class="square"><div id="board_value_1_5" class="squarevalue"></div><div id="board_height_1_5" class="squareheight"></div></div></td>
+                <td><div id="board_1_6" class="square"><div id="board_value_1_6" class="squarevalue"></div><div id="board_height_1_6" class="squareheight"></div></div></td>
+                <td><div id="board_1_7" class="square"><div id="board_value_1_7" class="squarevalue"></div><div id="board_height_1_7" class="squareheight"></div></div></td>
+                <td><div id="board_1_8" class="square"><div id="board_value_1_8" class="squarevalue"></div><div id="board_height_1_8" class="squareheight"></div></div></td>
+                <td><div id="board_1_9" class="square"><div id="board_value_1_9" class="squarevalue"></div><div id="board_height_1_9" class="squareheight"></div></div></td>
+                <td><div id="board_1_10" class="square"><div id="board_value_1_10" class="squarevalue"></div><div id="board_height_1_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_2_1" class="square"><div id="board_value_2_1" class="squarevalue"></div><div id="board_height_2_1" class="squareheight"></div></div></td>
+                <td><div id="board_2_2" class="square"><div id="board_value_2_2" class="squarevalue"></div><div id="board_height_2_2" class="squareheight"></div></div></td>
+                <td><div id="board_2_3" class="square"><div id="board_value_2_3" class="squarevalue"></div><div id="board_height_2_3" class="squareheight"></div></div></td>
+                <td><div id="board_2_4" class="square"><div id="board_value_2_4" class="squarevalue"></div><div id="board_height_2_4" class="squareheight"></div></div></td>
+                <td><div id="board_2_5" class="square"><div id="board_value_2_5" class="squarevalue"></div><div id="board_height_2_5" class="squareheight"></div></div></td>
+                <td><div id="board_2_6" class="square"><div id="board_value_2_6" class="squarevalue"></div><div id="board_height_2_6" class="squareheight"></div></div></td>
+                <td><div id="board_2_7" class="square"><div id="board_value_2_7" class="squarevalue"></div><div id="board_height_2_7" class="squareheight"></div></div></td>
+                <td><div id="board_2_8" class="square"><div id="board_value_2_8" class="squarevalue"></div><div id="board_height_2_8" class="squareheight"></div></div></td>
+                <td><div id="board_2_9" class="square"><div id="board_value_2_9" class="squarevalue"></div><div id="board_height_2_9" class="squareheight"></div></div></td>
+                <td><div id="board_2_10" class="square"><div id="board_value_2_10" class="squarevalue"></div><div id="board_height_2_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_3_1" class="square"><div id="board_value_3_1" class="squarevalue"></div><div id="board_height_3_1" class="squareheight"></div></div></td>
+                <td><div id="board_3_2" class="square"><div id="board_value_3_2" class="squarevalue"></div><div id="board_height_3_2" class="squareheight"></div></div></td>
+                <td><div id="board_3_3" class="square"><div id="board_value_3_3" class="squarevalue"></div><div id="board_height_3_3" class="squareheight"></div></div></td>
+                <td><div id="board_3_4" class="square"><div id="board_value_3_4" class="squarevalue"></div><div id="board_height_3_4" class="squareheight"></div></div></td>
+                <td><div id="board_3_5" class="square"><div id="board_value_3_5" class="squarevalue"></div><div id="board_height_3_5" class="squareheight"></div></div></td>
+                <td><div id="board_3_6" class="square"><div id="board_value_3_6" class="squarevalue"></div><div id="board_height_3_6" class="squareheight"></div></div></td>
+                <td><div id="board_3_7" class="square"><div id="board_value_3_7" class="squarevalue"></div><div id="board_height_3_7" class="squareheight"></div></div></td>
+                <td><div id="board_3_8" class="square"><div id="board_value_3_8" class="squarevalue"></div><div id="board_height_3_8" class="squareheight"></div></div></td>
+                <td><div id="board_3_9" class="square"><div id="board_value_3_9" class="squarevalue"></div><div id="board_height_3_9" class="squareheight"></div></div></td>
+                <td><div id="board_3_10" class="square"><div id="board_value_3_10" class="squarevalue"></div><div id="board_height_3_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_4_1" class="square"><div id="board_value_4_1" class="squarevalue"></div><div id="board_height_4_1" class="squareheight"></div></div></td>
+                <td><div id="board_4_2" class="square"><div id="board_value_4_2" class="squarevalue"></div><div id="board_height_4_2" class="squareheight"></div></div></td>
+                <td><div id="board_4_3" class="square"><div id="board_value_4_3" class="squarevalue"></div><div id="board_height_4_3" class="squareheight"></div></div></td>
+                <td><div id="board_4_4" class="square"><div id="board_value_4_4" class="squarevalue"></div><div id="board_height_4_4" class="squareheight"></div></div></td>
+                <td><div id="board_4_5" class="square"><div id="board_value_4_5" class="squarevalue"></div><div id="board_height_4_5" class="squareheight"></div></div></td>
+                <td><div id="board_4_6" class="square"><div id="board_value_4_6" class="squarevalue"></div><div id="board_height_4_6" class="squareheight"></div></div></td>
+                <td><div id="board_4_7" class="square"><div id="board_value_4_7" class="squarevalue"></div><div id="board_height_4_7" class="squareheight"></div></div></td>
+                <td><div id="board_4_8" class="square"><div id="board_value_4_8" class="squarevalue"></div><div id="board_height_4_8" class="squareheight"></div></div></td>
+                <td><div id="board_4_9" class="square"><div id="board_value_4_9" class="squarevalue"></div><div id="board_height_4_9" class="squareheight"></div></div></td>
+                <td><div id="board_4_10" class="square"><div id="board_value_4_10" class="squarevalue"></div><div id="board_height_4_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_5_1" class="square"><div id="board_value_5_1" class="squarevalue"></div><div id="board_height_5_1" class="squareheight"></div></div></td>
+                <td><div id="board_5_2" class="square"><div id="board_value_5_2" class="squarevalue"></div><div id="board_height_5_2" class="squareheight"></div></div></td>
+                <td><div id="board_5_3" class="square"><div id="board_value_5_3" class="squarevalue"></div><div id="board_height_5_3" class="squareheight"></div></div></td>
+                <td><div id="board_5_4" class="square"><div id="board_value_5_4" class="squarevalue"></div><div id="board_height_5_4" class="squareheight"></div></div></td>
+                <td><div id="board_5_5" class="square"><div id="board_value_5_5" class="squarevalue"></div><div id="board_height_5_5" class="squareheight"></div></div></td>
+                <td><div id="board_5_6" class="square"><div id="board_value_5_6" class="squarevalue"></div><div id="board_height_5_6" class="squareheight"></div></div></td>
+                <td><div id="board_5_7" class="square"><div id="board_value_5_7" class="squarevalue"></div><div id="board_height_5_7" class="squareheight"></div></div></td>
+                <td><div id="board_5_8" class="square"><div id="board_value_5_8" class="squarevalue"></div><div id="board_height_5_8" class="squareheight"></div></div></td>
+                <td><div id="board_5_9" class="square"><div id="board_value_5_9" class="squarevalue"></div><div id="board_height_5_9" class="squareheight"></div></div></td>
+                <td><div id="board_5_10" class="square"><div id="board_value_5_10" class="squarevalue"></div><div id="board_height_5_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_6_1" class="square"><div id="board_value_6_1" class="squarevalue"></div><div id="board_height_6_1" class="squareheight"></div></div></td>
+                <td><div id="board_6_2" class="square"><div id="board_value_6_2" class="squarevalue"></div><div id="board_height_6_2" class="squareheight"></div></div></td>
+                <td><div id="board_6_3" class="square"><div id="board_value_6_3" class="squarevalue"></div><div id="board_height_6_3" class="squareheight"></div></div></td>
+                <td><div id="board_6_4" class="square"><div id="board_value_6_4" class="squarevalue"></div><div id="board_height_6_4" class="squareheight"></div></div></td>
+                <td><div id="board_6_5" class="square"><div id="board_value_6_5" class="squarevalue"></div><div id="board_height_6_5" class="squareheight"></div></div></td>
+                <td><div id="board_6_6" class="square"><div id="board_value_6_6" class="squarevalue"></div><div id="board_height_6_6" class="squareheight"></div></div></td>
+                <td><div id="board_6_7" class="square"><div id="board_value_6_7" class="squarevalue"></div><div id="board_height_6_7" class="squareheight"></div></div></td>
+                <td><div id="board_6_8" class="square"><div id="board_value_6_8" class="squarevalue"></div><div id="board_height_6_8" class="squareheight"></div></div></td>
+                <td><div id="board_6_9" class="square"><div id="board_value_6_9" class="squarevalue"></div><div id="board_height_6_9" class="squareheight"></div></div></td>
+                <td><div id="board_6_10" class="square"><div id="board_value_6_10" class="squarevalue"></div><div id="board_height_6_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_7_1" class="square"><div id="board_value_7_1" class="squarevalue"></div><div id="board_height_7_1" class="squareheight"></div></div></td>
+                <td><div id="board_7_2" class="square"><div id="board_value_7_2" class="squarevalue"></div><div id="board_height_7_2" class="squareheight"></div></div></td>
+                <td><div id="board_7_3" class="square"><div id="board_value_7_3" class="squarevalue"></div><div id="board_height_7_3" class="squareheight"></div></div></td>
+                <td><div id="board_7_4" class="square"><div id="board_value_7_4" class="squarevalue"></div><div id="board_height_7_4" class="squareheight"></div></div></td>
+                <td><div id="board_7_5" class="square"><div id="board_value_7_5" class="squarevalue"></div><div id="board_height_7_5" class="squareheight"></div></div></td>
+                <td><div id="board_7_6" class="square"><div id="board_value_7_6" class="squarevalue"></div><div id="board_height_7_6" class="squareheight"></div></div></td>
+                <td><div id="board_7_7" class="square"><div id="board_value_7_7" class="squarevalue"></div><div id="board_height_7_7" class="squareheight"></div></div></td>
+                <td><div id="board_7_8" class="square"><div id="board_value_7_8" class="squarevalue"></div><div id="board_height_7_8" class="squareheight"></div></div></td>
+                <td><div id="board_7_9" class="square"><div id="board_value_7_9" class="squarevalue"></div><div id="board_height_7_9" class="squareheight"></div></div></td>
+                <td><div id="board_7_10" class="square"><div id="board_value_7_10" class="squarevalue"></div><div id="board_height_7_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_8_1" class="square"><div id="board_value_8_1" class="squarevalue"></div><div id="board_height_8_1" class="squareheight"></div></div></td>
+                <td><div id="board_8_2" class="square"><div id="board_value_8_2" class="squarevalue"></div><div id="board_height_8_2" class="squareheight"></div></div></td>
+                <td><div id="board_8_3" class="square"><div id="board_value_8_3" class="squarevalue"></div><div id="board_height_8_3" class="squareheight"></div></div></td>
+                <td><div id="board_8_4" class="square"><div id="board_value_8_4" class="squarevalue"></div><div id="board_height_8_4" class="squareheight"></div></div></td>
+                <td><div id="board_8_5" class="square"><div id="board_value_8_5" class="squarevalue"></div><div id="board_height_8_5" class="squareheight"></div></div></td>
+                <td><div id="board_8_6" class="square"><div id="board_value_8_6" class="squarevalue"></div><div id="board_height_8_6" class="squareheight"></div></div></td>
+                <td><div id="board_8_7" class="square"><div id="board_value_8_7" class="squarevalue"></div><div id="board_height_8_7" class="squareheight"></div></div></td>
+                <td><div id="board_8_8" class="square"><div id="board_value_8_8" class="squarevalue"></div><div id="board_height_8_8" class="squareheight"></div></div></td>
+                <td><div id="board_8_9" class="square"><div id="board_value_8_9" class="squarevalue"></div><div id="board_height_8_9" class="squareheight"></div></div></td>
+                <td><div id="board_8_10" class="square"><div id="board_value_8_10" class="squarevalue"></div><div id="board_height_8_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_9_1" class="square"><div id="board_value_9_1" class="squarevalue"></div><div id="board_height_9_1" class="squareheight"></div></div></td>
+                <td><div id="board_9_2" class="square"><div id="board_value_9_2" class="squarevalue"></div><div id="board_height_9_2" class="squareheight"></div></div></td>
+                <td><div id="board_9_3" class="square"><div id="board_value_9_3" class="squarevalue"></div><div id="board_height_9_3" class="squareheight"></div></div></td>
+                <td><div id="board_9_4" class="square"><div id="board_value_9_4" class="squarevalue"></div><div id="board_height_9_4" class="squareheight"></div></div></td>
+                <td><div id="board_9_5" class="square"><div id="board_value_9_5" class="squarevalue"></div><div id="board_height_9_5" class="squareheight"></div></div></td>
+                <td><div id="board_9_6" class="square"><div id="board_value_9_6" class="squarevalue"></div><div id="board_height_9_6" class="squareheight"></div></div></td>
+                <td><div id="board_9_7" class="square"><div id="board_value_9_7" class="squarevalue"></div><div id="board_height_9_7" class="squareheight"></div></div></td>
+                <td><div id="board_9_8" class="square"><div id="board_value_9_8" class="squarevalue"></div><div id="board_height_9_8" class="squareheight"></div></div></td>
+                <td><div id="board_9_9" class="square"><div id="board_value_9_9" class="squarevalue"></div><div id="board_height_9_9" class="squareheight"></div></div></td>
+                <td><div id="board_9_10" class="square"><div id="board_value_9_10" class="squarevalue"></div><div id="board_height_9_10" class="squareheight"></div></div></td>
+              </tr>
+              <tr>
+                <td><div id="board_10_1" class="square"><div id="board_value_10_1" class="squarevalue"></div><div id="board_height_10_1" class="squareheight"></div></div></td>
+                <td><div id="board_10_2" class="square"><div id="board_value_10_2" class="squarevalue"></div><div id="board_height_10_2" class="squareheight"></div></div></td>
+                <td><div id="board_10_3" class="square"><div id="board_value_10_3" class="squarevalue"></div><div id="board_height_10_3" class="squareheight"></div></div></td>
+                <td><div id="board_10_4" class="square"><div id="board_value_10_4" class="squarevalue"></div><div id="board_height_10_4" class="squareheight"></div></div></td>
+                <td><div id="board_10_5" class="square"><div id="board_value_10_5" class="squarevalue"></div><div id="board_height_10_5" class="squareheight"></div></div></td>
+                <td><div id="board_10_6" class="square"><div id="board_value_10_6" class="squarevalue"></div><div id="board_height_10_6" class="squareheight"></div></div></td>
+                <td><div id="board_10_7" class="square"><div id="board_value_10_7" class="squarevalue"></div><div id="board_height_10_7" class="squareheight"></div></div></td>
+                <td><div id="board_10_8" class="square"><div id="board_value_10_8" class="squarevalue"></div><div id="board_height_10_8" class="squareheight"></div></div></td>
+                <td><div id="board_10_9" class="square"><div id="board_value_10_9" class="squarevalue"></div><div id="board_height_10_9" class="squareheight"></div></div></td>
+                <td><div id="board_10_10" class="square"><div id="board_value_10_10" class="squarevalue"></div><div id="board_height_10_10" class="squareheight"></div></div></td>
+              </tr>
+            </table>
+            <div class="rack">
+              <table class="rack" id="rack">
+                <tr>
+                  <td><div id="rack_1" class="square"><div id="rack_value_1" class="squarevalue"></div></div></td>
+                  <td><div id="rack_2" class="square"><div id="rack_value_2" class="squarevalue"></div></div></td>
+                  <td><div id="rack_3" class="square"><div id="rack_value_3" class="squarevalue"></div></div></td>
+                  <td><div id="rack_4" class="square"><div id="rack_value_4" class="squarevalue"></div></div></td>
+                  <td><div id="rack_5" class="square"><div id="rack_value_5" class="squarevalue"></div></div></td>
+                  <td><div id="rack_6" class="square"><div id="rack_value_6" class="squarevalue"></div></div></td>
+                  <td><div id="rack_7" class="square"><div id="rack_value_7" class="squarevalue"></div></div></td>
+                </tr>
+              </table>
+              <div id="rackControls">
+                <button id="returnToRackButton" class="w3-deep-purple w3-button w3-medium w3-round-xxlarge">Return To Rack</button>
+                <label id="turnScore"></label>
+              </div>
+            </div>
+          </div>
+          <div id="bottomBar" class="w3-bar">
+            <div class="w3-left" id="gameInitiationButtons">
+              <button id="createButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Create Game</button>
+              <button id="joinButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Join Game</button>
+            </div>
+            <div class="w3-left" id="awaitingTurn">
+              <span id="turnsToWaitCaption"></span>
+            </div>
+            <div class="w3-left" id="gamePlayButtons">
+              <button id="swapButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Swap A Tile</button>
+              <button id="passButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Pass Turn</button>
+              <button id="playButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Play Turn</button>
+            </div>
+            <div class="w3-right" id="refreshGameButtons">
+              <button id="refreshButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Refresh Game</button>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div id="creatingGameDialog" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-amber">
+            <span onclick="window.word_game.GameManager.hideCreatingGameDialog()" class="w3-button w3-display-topright">&times;</span>
+            <h2>Awaiting Players</h2>
+        </header>
+        <div class="w3-container">
+          <p>The game id is: <span id="gameId"></span> (share this with the players you want to join the game)</p>
+          <p>Your player id is: <span id="playerId"></span></p>
+          <p>Your player name is: <span id="playerName"></span></p>
+          <p><span id="playerNames">Waiting for player(s) to join...</span></p>
+          <span id="rulesetHolder">Please select the rule-set: <select id="rulesetSelect"></select></span>
+        </div>
+        <footer class="w3-container w3-amber">
+            <p><button id="startGameButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Start Game</button>&nbsp;</p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="createGameDialog" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-amber">
+            <span onclick="window.word_game.GameManager.hideCreateGameDialog()" class="w3-button w3-display-topright">&times;</span>
+            <h2>Create Game</h2>
+        </header>
+        <div class="w3-container">
+            <p>Please enter your name: <input id="playerNameInput" type="text" maxlength="35" size="20"></p>
+        </div>
+        <footer class="w3-container w3-amber">
+            <p><button id="getGameIdButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Get Game Id</button></p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="joinGameDialog" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-amber">
+            <span onclick="window.word_game.GameManager.hideJoinGameDialog()" class="w3-button w3-display-topright">&times;</span>
+            <h2>Join Game</h2>
+        </header>
+        <div class="w3-container">
+            <p>Please enter the game id: <input id="gameIdInput" type="text" maxlength="10" size="5" onblur="this.value=this.value.toLocaleUpperCase()"></p>
+            <p>Please enter your name: <input id="joinPlayerNameInput" type="text" maxlength="35" size="20"></p>
+        </div>
+        <footer class="w3-container w3-amber">
+            <p><button id="getPlayerIdButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Join This Game</button></p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="confirmPassDialog" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-amber">
+            <span onclick="window.word_game.GameManager.hideConfirmPassDialog()" class="w3-button w3-display-topright">&times;</span>
+            <h2>Confirm Pass</h2>
+        </header>
+        <div class="w3-container">
+            <p>Do you really want to pass your turn?</p>
+        </div>
+        <footer class="w3-container w3-amber">
+            <p>
+                <button id="cancelPassButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">No</button>
+                <button id="confirmPassButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">Yes</button>
+            </p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="wordsPlayedDialog" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-amber">
+            <span onclick="window.word_game.GameManager.hideWordsPlayedDialog()" class="w3-button w3-display-topright">&times;</span>
+            <h2>Words Played</h2>
+        </header>
+        <div class="w3-container">
+            <p><span id="wordsPlayedMessage"></span></p>
+        </div>
+        <footer class="w3-container w3-amber">
+            <p>
+                <button id="acceptWordsPlayedButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">OK</button>
+            </p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="gameOverDialog" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-amber">
+            <span onclick="window.word_game.GameManager.hideGameOverDialog()" class="w3-button w3-display-topright">&times;</span>
+            <h2>Game Over</h2>
+        </header>
+        <div class="w3-container">
+            <p><span id="gameOverMessage"></span></p>
+        </div>
+        <footer class="w3-container w3-amber">
+            <p>
+                <button id="acceptGameOverButton" class="w3-margin-top w3-purple w3-button w3-round-xxlarge">OK</button>
+            </p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="serverWarning" class="w3-modal">
+      <div class="w3-modal-content">
+        <header class="w3-container w3-amber">
+            <span onclick="window.word_game.GameManager.hideWarning()" class="w3-button w3-display-topright">&times;</span>
+            <h2>Warning</h2>
+        </header>
+        <div class="w3-container">
+          <p id="serverWarningMessage" class="w3-text-orange"></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.word_game.GameManager.init({
+        refreshManually: false
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+body, #topBar, #bottomBar { background-color: #FFC107; color: #000000 }
+#uiPanel { background-color: #778899 }
+#scoresView { background-color: #FFFFFF; width:100%; position:relative; font-weight: bold; color: #B22222 }
+#scoresView table td { padding-left: 60px; }
+#playingAreaView { width:100%; overflow:auto; position:relative; }
+#createButton {margin-top: 5px}
+#joinButton {margin-top: 5px}
+#overlay {  position: fixed; display: none; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0;  background-color: rgba(0,0,0,0.5); z-index: 2000; cursor: pointer; }
+#overlayText { position: absolute; top: 50%; left: 50%; font-size: 50px; color: white; transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); }
+#serverWarning { z-index: 2000; }
+#createGameDialog { z-index: 2000; }
+#joinGameDialog { z-index: 2000; }
+#gameOverDialog { z-index: 2000; }
+#wordsPlayedDialog { z-index: 2010; }
+#gameId { font-weight: bold; color: #FF0000 }
+#playerNames { font-weight: bold; color: #FF0000 }
+#awaitingTurn { display: none }
+#gamePlayButtons { display: none }
+#refreshGameButtons { display: none }
+#tilesLeftPanel { display: none; font-weight: bold; text-align: center }
+#playingAreaView td { padding: 0px; }
+#playingAreaView table { border: 8px ridge #B22222; }
+#gameIdInput { text-transform: uppercase; }
+.square { border: 2px solid black; background-color: #DEB887; }
+.squarevalue { font-weight: bold; height:100%; text-align: center; position: relative }
+.squareheight { font-size: 12px; width: 20px; font-weight: bold; color: red; position: relative; text-align: center}
+.square.occupied { background-color: #FFFFFF; }
+.square.disabled { background-color: #B22222; }
+.square.startup { background-color: #FFFF00; }
+.square.max { background-color: #999999; }
+.square.originalvalue { background-color: #BBBBBB; }
+table.board { margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 10px; }
+div.rack { margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 20px; }
+table.rack { float: left }
+#rackControls { float: left; margin-left: 10px; display: none; }
