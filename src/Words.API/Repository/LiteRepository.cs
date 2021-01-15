@@ -261,7 +261,7 @@ namespace Words.API.Repository
             return null;
         }
 
-        public object SyncLock
+        public object SynchLock
         {
             get
             {

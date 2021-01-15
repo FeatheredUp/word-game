@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Words.API.Controllers;
-using Words.API.Exceptions;
 using Words.API.DataModels;
 using Words.API.Repository;
 using Xunit;
@@ -22,6 +21,7 @@ namespace Words.Test
 
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
             mockRepository.Setup(repo => repo.SaveCreatedGame(It.IsAny<CreatedGame>()));
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -33,6 +33,7 @@ namespace Words.Test
             Assert.Null(createResult.ErrorResult);
 
             mockRepository.Verify(repo => repo.SaveCreatedGame(It.IsAny<CreatedGame>()), Times.Once);
+            mockRepository.Verify(repo => repo.SynchLock, Times.AtLeastOnce);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -42,6 +43,7 @@ namespace Words.Test
             var mockLogger = new Mock<ILogger<GameController>>();
 
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -52,6 +54,7 @@ namespace Words.Test
             Assert.Null(createResult.PlayerId);
             Assert.Equal("Player name <blank> is not valid.", createResult.ErrorResult.ErrorMessage);
 
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
         #endregion
@@ -70,6 +73,7 @@ namespace Words.Test
             var existingPlayers = new List<Player>() { new Player(new PlayerName("Bob"), true) };
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
             mockRepository.Setup(repo => repo.JoinGame(It.IsAny<GameId>(), It.IsAny<Player>()));
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -83,6 +87,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.IsGameAtCapacity(It.IsAny<GameId>(), It.IsAny<int>()));
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.JoinGame(It.IsAny<GameId>(), It.IsAny<Player>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -92,6 +97,7 @@ namespace Words.Test
             var mockLogger = new Mock<ILogger<GameController>>();
 
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -100,6 +106,7 @@ namespace Words.Test
             Assert.Null(joinResult?.PlayerId);
             Assert.Equal("Game 1ABC is not valid.", joinResult?.ErrorResult.ErrorMessage);
 
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -110,6 +117,7 @@ namespace Words.Test
 
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(false);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -119,6 +127,7 @@ namespace Words.Test
             Assert.Equal("Game ABCD does not exist.", joinResult?.ErrorResult.ErrorMessage);
 
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -133,6 +142,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.IsGameAtCapacity(It.IsAny<GameId>(), It.IsAny<int>())).Returns(false);
             var existingPlayers = new List<Player>() { new Player(new PlayerName("Susan"), true) };
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -145,6 +155,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.IsGameAtCapacity(It.IsAny<GameId>(), It.IsAny<int>()));
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -156,6 +167,7 @@ namespace Words.Test
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(true);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -166,6 +178,7 @@ namespace Words.Test
 
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
         #endregion
@@ -182,6 +195,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(false);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -198,6 +212,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -212,6 +227,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(false);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -228,6 +244,8 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -242,6 +260,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(true);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -258,6 +277,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -272,6 +292,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(false);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -288,6 +309,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -300,6 +322,7 @@ namespace Words.Test
 
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(false);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -313,6 +336,7 @@ namespace Words.Test
             Assert.Equal("Game ABCD does not exist.", creatingResult.ErrorResult.ErrorMessage);
 
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -326,6 +350,7 @@ namespace Words.Test
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -340,6 +365,7 @@ namespace Words.Test
 
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -378,10 +404,11 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(false);
             mockRepository.Setup(repo => repo.GetPlayers(It.IsAny<GameId>())).Returns(existingPlayers);
             mockRepository.Setup(repo => repo.StartGame(It.IsAny<GameState>()));
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
-            var startResult = gameController.Start("ABCD", creator.PlayerId.Value, null);
+            var startResult = gameController.Start("ABCD", creator.PlayerId.Value, "");
 
             Assert.Null(startResult.ErrorResult);
 
@@ -389,6 +416,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.GetPlayers(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.StartGame(It.IsAny<GameState>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -404,15 +432,17 @@ namespace Words.Test
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(true);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
-            var startResult = gameController.Start("ABCD", creator.PlayerId.Value, null);
+            var startResult = gameController.Start("ABCD", creator.PlayerId.Value, "");
 
             Assert.Equal("Game ABCD is already in progress.", startResult.ErrorResult.ErrorMessage);
 
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
         #endregion
@@ -438,6 +468,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.GetGameState(It.IsAny<GameId>())).Returns(gameState);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -453,6 +484,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.GetGameState(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -466,6 +498,7 @@ namespace Words.Test
             var mockRepository = new Mock<IRepository>(MockBehavior.Strict);
             mockRepository.Setup(repo => repo.DoesGameExist(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(false);
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -478,6 +511,7 @@ namespace Words.Test
 
             mockRepository.Verify(repo => repo.DoesGameExist(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
         #endregion
@@ -506,6 +540,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.GetGameState(It.IsAny<GameId>())).Returns(gameState);
             mockRepository.Setup(repo => repo.SaveGameState(It.IsAny<GameState>(), It.IsAny<PlayerId>()));
             mockRepository.Setup(repo => repo.WordsNotInDictionary(It.IsAny<IReadOnlyList<string>>())).Returns(new List<string>());
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -540,6 +575,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.GetGameState(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.SaveGameState(It.IsAny<GameState>(), It.IsAny<PlayerId>()));
             mockRepository.Verify(repo => repo.WordsNotInDictionary(It.IsAny<IReadOnlyList<string>>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 
@@ -566,6 +602,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.GetGameState(It.IsAny<GameId>())).Returns(gameState);
             mockRepository.Setup(repo => repo.SaveEndGameState(It.IsAny<GameState>()));
             mockRepository.Setup(repo => repo.WordsNotInDictionary(It.IsAny<IReadOnlyList<string>>())).Returns(new List<string>());
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -600,6 +637,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.GetGameState(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.SaveEndGameState(It.IsAny<GameState>()));
             mockRepository.Verify(repo => repo.WordsNotInDictionary(It.IsAny<IReadOnlyList<string>>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
         #endregion
@@ -627,7 +665,8 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.GetGameState(It.IsAny<GameId>())).Returns(gameState);
             mockRepository.Setup(repo => repo.SaveGameState(It.IsAny<GameState>(), It.IsAny<PlayerId>()));
- 
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
+
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
             var passResult = gameController.Pass("ABCD", turn.CurrentPlayerId.Value);
@@ -643,6 +682,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.GetGameState(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.SaveGameState(It.IsAny<GameState>(), It.IsAny<PlayerId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
         #endregion
@@ -670,6 +710,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.GetGameState(It.IsAny<GameId>())).Returns(gameState);
             mockRepository.Setup(repo => repo.SaveGameState(It.IsAny<GameState>(), It.IsAny<PlayerId>()));
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -688,6 +729,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.GetGameState(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.SaveGameState(It.IsAny<GameState>(), It.IsAny<PlayerId>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
         #endregion
@@ -715,6 +757,7 @@ namespace Words.Test
             mockRepository.Setup(repo => repo.HasGameStarted(It.IsAny<GameId>())).Returns(true);
             mockRepository.Setup(repo => repo.GetGameState(It.IsAny<GameId>())).Returns(gameState);
             mockRepository.Setup(repo => repo.WordsNotInDictionary(It.IsAny<IReadOnlyList<string>>())).Returns(new List<string>());
+            mockRepository.Setup(repo => repo.SynchLock).Returns(1);
 
             var gameController = new GameController(mockLogger.Object, mockRepository.Object);
 
@@ -742,6 +785,7 @@ namespace Words.Test
             mockRepository.Verify(repo => repo.HasGameStarted(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.GetGameState(It.IsAny<GameId>()));
             mockRepository.Verify(repo => repo.WordsNotInDictionary(It.IsAny<IReadOnlyList<string>>()));
+            mockRepository.Verify(repo => repo.SynchLock);
             mockRepository.VerifyNoOtherCalls();
         }
 

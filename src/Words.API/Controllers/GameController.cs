@@ -28,7 +28,7 @@ namespace Words.API.Controllers
         {
             try
             {
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var newGame = game.Create(new PlayerName(name));
@@ -53,7 +53,7 @@ namespace Words.API.Controllers
         {
             try
             {
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var playerId = game.Join(new GameId(gameId?.ToUpper()), new PlayerName(name));
@@ -81,7 +81,7 @@ namespace Words.API.Controllers
                 var playerIdModel = new PlayerId(playerId);
                 var gameIdModel = new GameId(gameId);
 
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var players = game.GetLoadingPlayers(gameIdModel, playerIdModel);
@@ -105,7 +105,7 @@ namespace Words.API.Controllers
         {
             try
             {
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var state = game.Start(new GameId(gameId), new PlayerId(playerId), GameRules.GetRulesetOrDefault(ruleset));
@@ -130,7 +130,7 @@ namespace Words.API.Controllers
         {
             try
             {
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var state = game.Poll(new GameId(gameId), new PlayerId(playerId));
@@ -159,7 +159,7 @@ namespace Words.API.Controllers
                 var playerId = new PlayerId(playInput.PlayerId);
                 var placements = playInput.TilePlacements?.Select(tp => new TilePlacement(tp.Letter, tp.Row, tp.Column)).ToList();
 
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var state = game.Play(gameId, playerId, placements);
@@ -191,7 +191,7 @@ namespace Words.API.Controllers
                 var playerId = new PlayerId(playInput.PlayerId);
                 var placements = playInput.TilePlacements?.Select(tp => new TilePlacement(tp.Letter, tp.Row, tp.Column)).ToList();
 
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var turn = game.TryPlay(gameId, playerId, placements);
@@ -219,7 +219,7 @@ namespace Words.API.Controllers
                 var gameIdModel = new GameId(gameId);
                 var playerIdModel = new PlayerId(playerId);
 
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var state = game.Pass(gameIdModel, playerIdModel);
@@ -247,7 +247,7 @@ namespace Words.API.Controllers
                 var gameIdModel = new GameId(gameId);
                 var playerIdModel = new PlayerId(playerId);
 
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var state = game.Swap(gameIdModel, playerIdModel, letter);
@@ -274,7 +274,7 @@ namespace Words.API.Controllers
             {
                 var gameIdModel = new GameId(gameId);
 
-                lock (_repository.SyncLock)
+                lock (_repository.SynchLock)
                 {
                     var game = new GameLogic(_repository);
                     var history = game.GetHistory(gameIdModel);

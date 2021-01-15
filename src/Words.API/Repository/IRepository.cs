@@ -17,6 +17,6 @@ namespace Words.API.Repository
         List<string> WordsNotInDictionary(IReadOnlyList<string> words);
         History GetHistory(GameId gameId);
         bool IsGameAtCapacity(GameId gameId, int capacity);
-        object SyncLock { get; }
+        object SynchLock { get; }
     }
 }
